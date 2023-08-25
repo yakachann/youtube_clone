@@ -2,12 +2,10 @@ import { Stack } from '@mui/material';
 import { Categories } from '@mui/icons-material';
 import { categories } from '../utils/constants';
 
-const selectedCategory = 'New';
-
 //directionをrowに設定することで要素を横方向に並べる
 //overflowYでautoは要素が画面に納まりきらないときは縦スクロールバーの表示
 //flexdirectionでは画面中サイズmdの時に要素を縦方向に並べる表示
-const Sidebar = () =>  (
+const Sidebar = ({selectedCategory, setSelectedCategory}) =>  (
     <Stack
       direction="row"
       sx={ {
@@ -18,6 +16,7 @@ const Sidebar = () =>  (
       {categories.map((category) => (
         <button 
           className="category-btn" 
+          onClick={() => setSelectedCategory(category.name)}
           style={{
               background: category.name === selectedCategory && '#FC1503',
               color: 'white'
