@@ -1,9 +1,49 @@
-import React from 'react'
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { Box } from "@mui/material";
+import { Videos, ChannelCard } from './';
+import { fetchFromAPI } from "../utils/fetchFromAPI";
+
+
 
 const CannelDetail = () => {
+  const [channelDetail, setChannelDetail] = useState(null);
+  const [ videos, setVideos ] = useState([]);
+  //useParams:URL内のパラメーターをオブジェクトとして返す
+  const { id } = useParams();
+  const getDetail = async () => {
+    const response = await fetchFromAPI(`https://yt-api.p.rapidapi.com/channel/channels?part=snippet&id=${id}`)
+    setChannelDetail({channelThumbnail:response.data.meta.avatar,channelId:response.data.meta.channelId})
+    //console.log(`https://yt-api.p.rapidapi.com/channel/channels?part=snippet&channel?id=${id}`)
+    console.log(response)
+     //console.log("情報" + JSON.stringify(response[0].data[0]));
+  }
+  const getDetail2 = async () => {
+    setVideos((await fetchFromAPI(`https://yt-api.p.rapidapi.com/channel/search?id=${id}&part=snippet&order=date`)));
+    //console.log("情報2" + response);
+  }
+  useEffect(() => {
+    getDetail();
+    getDetail2();
+  }, [id])
+
+  //CSS GradientというサイトからCSSを引用,zIndex:要素の重なり順を指定する
   return (
-    <div>CannelDetail</div>
+    <Box minHeight="95vh">
+      <Box>
+        <div style={{
+          background: 'linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(0,212,255,1) 0%, rgba(206,3,184,1) 100%)',
+          zIndex: 10,
+          height: '300px'
+        }}
+        />
+        {/* <ChannelCard channelDetail={channelDetail}
+        margineTop="-110px"/> */}
+        
+      </Box>
+
+    </Box>
   )
 }
-
 export default CannelDetail
+

@@ -1,23 +1,18 @@
-import axious from 'axios';
-
 const axios = require('axios');
+//process.env.REACT_APP_RAPID_API_KEY
 
-const BASE_URL = 'https://youtube-v3-alternative.p.rapidapi.com/search';
+//fetchFromAPIでgetメソッドを使用しているためoptionsにはurl不要
 const options = {
-  url: BASE_URL,
-  //params: {id: 'dQw4w9WgXcQ'},
+  method: 'GET',
+//  url: 'https://yt-api.p.rapidapi.com/search',
+  params: {
+    id: 'UCAuUUnT6oDeKwE6v1NGQxug',        
+    query: 'cat'},
   headers: {
-    //'X-RapidAPI-Key': process.env.REACT_APP_RAPID_API_KEY,
     'X-RapidAPI-Key': '26e79d0b15msh7875fffc8624bc3p1a3725jsn3729e8066855',
-    'X-RapidAPI-Host': 'youtube-v3-alternative.p.rapidapi.com',
+    'X-RapidAPI-Host': 'yt-api.p.rapidapi.com'
   }
 };
-try {
-	const response = await axios.request(options);
-	console.log(response.data);
-} catch (error) {
-	console.error(error);
-}
 
 /**
  * exportで外部からファイルを利用できるように公開
@@ -26,7 +21,8 @@ try {
  * axios:jsでHTTPリクエストを行うためのライブラリ（GET、POSTなど様々な種類のHTTPリクエストを簡単にできるようになる）
  */
 export const fetchFromAPI = async(url) => {
-  const { data } = await axios.get(`${BASE_URL}/${url}`, options)
-
-  return data;
+  //const { data } = await axios.get(url, options);
+  //return data.data;
+  const res = await axios.get(url, options);
+  return res;
 }

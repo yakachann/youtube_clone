@@ -18,17 +18,21 @@ const Feed = () => {
   //q=の後ろに具体的なキーワードを指定することで関連する動画を検索
   //※「search?part=snippet&q=」の形式はyoutube data apiが提供する特定のエンドポイントとパラメーター
   //useEffectは第2引数の値が変化したときに実行される関数を受け取る(第2引数が空[]の場合は初回1度だけの実行)
+  //fetchFromAPIでasync-awaitを使っているが、その場合戻り値がpromise型では無くなるため、thenは使用できない(useEffectではasync-awaitは使用非推奨)
+  const getYoutube = async () => {
+    setVideos((await fetchFromAPI(`https://yt-api.p.rapidapi.com/search?part=snippet&q=${selectedCategory}`)).data.data)
+  }
+
   useEffect(() => {
-    // fetchFromAPI(`search?part=snippet&q=${selectedCategory}`);
-    fetchFromAPI(`?part=snippet&q=${selectedCategory}`).then((data) => setVideos(data.items))
+    getYoutube()
   }, [selectedCategory]);
 
   return (
     <Stack sx={{ flexDirection: { sx: "column", md: "row" } }}>
       <Box sx={{ height: { sx: 'auto', md: '92vh' }, borderRight: '1px solid #3d3d3d', px: { sx: 0, md: 2 } }}>
-        <Sidebar 
+        <Sidebar
           selectedCategory={selectedCategory}
-          setSelectedCategory={setSelectedCategory}/>
+          setSelectedCategory={setSelectedCategory} />
         <Typography className="copyright" variant='body2' sx={{ mt: 1.5, color: '#fff' }}>
           Copyright 2022 JSM Media
 
@@ -39,7 +43,7 @@ const Feed = () => {
           {selectedCategory} <span style={{ color: '#F31503' }}>videos</span>
         </Typography>
 
-        <Videos videos={videos}/>
+        <Videos videos={videos} />
       </Box>
     </Stack>
   )
