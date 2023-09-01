@@ -13,14 +13,15 @@ const CannelDetail = () => {
   const { id } = useParams();
   const getDetail = async () => {
     const response = await fetchFromAPI(`https://yt-api.p.rapidapi.com/channel/channels?part=snippet&id=${id}`)
-    setChannelDetail({channelThumbnail:response.data.meta.avatar,channelId:response.data.meta.channelId})
+    setChannelDetail({channelThumbnail:response.data.meta.avatar,channelId:response.data.meta.channelId, channelTitle:response.data.meta.title, viewCount:response.data.meta.subscriberCount})
     //console.log(`https://yt-api.p.rapidapi.com/channel/channels?part=snippet&channel?id=${id}`)
-    console.log(response)
+    // console.log(response)
      //console.log("情報" + JSON.stringify(response[0].data[0]));
   }
   const getDetail2 = async () => {
-    setVideos((await fetchFromAPI(`https://yt-api.p.rapidapi.com/channel/search?id=${id}&part=snippet&order=date`)));
-    //console.log("情報2" + response);
+    const response = await fetchFromAPI(`https://yt-api.p.rapidapi.com/channel/search?id=${id}&part=snippet&sort_by=newest`)
+    setVideos(response.data.data);
+    console.log(response.data.data);
   }
   useEffect(() => {
     getDetail();
@@ -37,11 +38,15 @@ const CannelDetail = () => {
           height: '300px'
         }}
         />
-        {/* <ChannelCard channelDetail={channelDetail}
-        margineTop="-110px"/> */}
-        
+        <ChannelCard channelDetail={channelDetail}
+        marginTop="-110px"/>
       </Box>
+        <Box display="flex" p="2">
+          <Box sx={ {mr: {sm: '100px'}}}>
+            <Videos videos={videos}/>
+          </Box>
 
+        </Box>
     </Box>
   )
 }

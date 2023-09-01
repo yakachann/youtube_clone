@@ -3,7 +3,7 @@ import { Stack, Box } from '@mui/material';
 import { VideoCard, ChannelCard} from './';
 
 const Videos = ({ videos }) => {
-  
+  // console.log(videos);
 
   return (
     //flexWrap="wrap":Boxの中の要素がコンテナの幅を超えるときに新しい行に折り返す

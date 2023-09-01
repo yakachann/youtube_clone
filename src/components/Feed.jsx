@@ -21,6 +21,7 @@ const Feed = () => {
   //fetchFromAPIでasync-awaitを使っているが、その場合戻り値がpromise型では無くなるため、thenは使用できない(useEffectではasync-awaitは使用非推奨)
   const getYoutube = async () => {
     setVideos((await fetchFromAPI(`https://yt-api.p.rapidapi.com/search?part=snippet&q=${selectedCategory}`)).data.data)
+    console.log((await fetchFromAPI(`https://yt-api.p.rapidapi.com/search?part=snippet&q=${selectedCategory}`)).data.data)
   }
 
   useEffect(() => {
