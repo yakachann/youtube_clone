@@ -19,7 +19,7 @@ const CannelDetail = () => {
      //console.log("情報" + JSON.stringify(response[0].data[0]));
   }
   const getDetail2 = async () => {
-    const response = await fetchFromAPI(`https://yt-api.p.rapidapi.com/channel/search?id=${id}&part=snippet&sort_by=newest`)
+    const response = await fetchFromAPI(`https://yt-api.p.rapidapi.com/channel/videos?id=${id}&part=snippet&sort_by=newest`)
     setVideos(response.data.data);
     console.log(response.data.data);
   }
