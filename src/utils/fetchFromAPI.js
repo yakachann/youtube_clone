@@ -6,8 +6,7 @@ const options = {
   method: 'GET',
 //  url: 'https://yt-api.p.rapidapi.com/search',
   params: {
-    id: 'UCAuUUnT6oDeKwE6v1NGQxug',        
-    query: 'cat',
+           
   },
   headers: {
     'X-RapidAPI-Key': '26e79d0b15msh7875fffc8624bc3p1a3725jsn3729e8066855',

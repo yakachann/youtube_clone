@@ -14,14 +14,11 @@ const CannelDetail = () => {
   const getDetail = async () => {
     const response = await fetchFromAPI(`https://yt-api.p.rapidapi.com/channel/channels?part=snippet&id=${id}`)
     setChannelDetail({channelThumbnail:response.data.meta.avatar,channelId:response.data.meta.channelId, channelTitle:response.data.meta.title, viewCount:response.data.meta.subscriberCount})
-    //console.log(`https://yt-api.p.rapidapi.com/channel/channels?part=snippet&channel?id=${id}`)
-    // console.log(response)
-     //console.log("情報" + JSON.stringify(response[0].data[0]));
+
   }
   const getDetail2 = async () => {
     const response = await fetchFromAPI(`https://yt-api.p.rapidapi.com/channel/videos?id=${id}&part=snippet&sort_by=newest`)
     setVideos(response.data.data);
-    console.log(response.data.data);
   }
   useEffect(() => {
     getDetail();
